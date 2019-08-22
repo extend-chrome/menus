@@ -1,6 +1,5 @@
 import { _removeContextMenu } from './_chrome'
 import { optionsMap } from './optionsMap'
-// @ts-ignore
 import { couldNotRemoveError } from './CONSTANTS'
 import { Subject } from 'rxjs'
 

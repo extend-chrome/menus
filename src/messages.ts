@@ -1,8 +1,7 @@
 import { messages } from '@bumble/messages'
 import { fromEventPattern } from 'rxjs'
-import { filter, debounce, debounceTime } from 'rxjs/operators'
-// @ts-ignore
-import { domain, show, hide, id, element } from './CONSTANTS'
+import { debounceTime, filter } from 'rxjs/operators'
+import { domain, element, hide, id, show } from './CONSTANTS'
 
 // Use in content script to send command
 export const showMenu = () => {
@@ -44,7 +43,7 @@ export const messageStream = fromEventPattern<
         innerText: string
       }
     },
-    chrome.runtime.MessageSender
+    chrome.runtime.MessageSender,
   ]
 >(messages.on, messages.off).pipe(
   filter(([{ domain: d }]) => d === domain),

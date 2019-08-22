@@ -1,6 +1,5 @@
 import { Subject } from 'rxjs'
 import { optionsMap } from './optionsMap'
-// @ts-ignore
 import { noOptionsIdError } from './CONSTANTS'
 import { _updateContextMenu } from './_chrome'
 
