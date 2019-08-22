@@ -7,11 +7,11 @@
   "files": [
     "lib/*.js",
     "lib/*.js.map",
-    "lib/index.d.ts"
+    "types/*.d.ts"
   ],
   "main": "lib/index-cjs.js",
   "module": "lib/index-esm.js",
-  "types": "lib/index.d.ts",
+  "types": "types/index.d.ts",
   "scripts": {
     "build": "run-p build:dev",
     "build:dev": "rollup -c --environment NODE_ENV:development",
@@ -32,6 +32,10 @@
     "hooks": {
       "pre-commit": "run-s format"
     }
+  },
+  "dependencies": {
+    "@bumble/chrome-rxjs": "^0.9.2",
+    "@bumble/messages": "^0.2.4"
   },
   "devDependencies": {
     "@types/chrome": "0.0.81",
