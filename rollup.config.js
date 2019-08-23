@@ -24,5 +24,11 @@ export default [
       }),
       typescript(),
     ],
+    external: [
+      '@bumble/chrome-rxjs',
+      'rxjs',
+      'rxjs/operators',
+      '@bumble/messages',
+    ],
   },
 ]

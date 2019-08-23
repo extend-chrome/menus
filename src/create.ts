@@ -1,4 +1,5 @@
 import { tabs } from '@bumble/chrome-rxjs'
+import { code } from 'code ./script.ts'
 import { Subject, Subscription } from 'rxjs'
 import {
   contextMenuExistsError,
@@ -6,12 +7,6 @@ import {
 } from './CONSTANTS'
 import { hideMenuStream, showMenuStream } from './messages'
 import { optionsMap } from './optionsMap'
-// @ts-ignore
-// using legacy format
-import code from './script.ts/index.js.js'
-// using new virtual module prefix
-// import { code } from 'code ./script.js'
-// import { filePath } from 'filePath ./script.js'
 import {
   _createContextMenu,
   _executeScriptInTab,

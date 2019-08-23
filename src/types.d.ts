@@ -1,6 +1,10 @@
-// declare module 'code ./script.js' {
-//   export const code: string
-// }
+/* -------------------------------------------- */
+/*                 MANUAL TYPES                 */
+/* -------------------------------------------- */
+
+declare module 'code ./script.ts' {
+  export const code: string
+}
 
 interface ContextMenus {
   /**
