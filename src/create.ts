@@ -8,7 +8,7 @@ import { hideMenuStream, showMenuStream } from './messages'
 import { optionsMap } from './optionsMap'
 // @ts-ignore
 // using legacy format
-import code from './script.code.js'
+import code from './script.ts/index.js.js'
 // using new virtual module prefix
 // import { code } from 'code ./script.js'
 // import { filePath } from 'filePath ./script.js'

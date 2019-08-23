@@ -1,7 +1,7 @@
 import { Observable, Subject } from 'rxjs'
 
 // TODO: make this a proper observable
-const _selectorRemovedStream = new Subject()
+const _selectorRemovedStream = new Subject<Element>()
 export const selectorRemovedStream = _selectorRemovedStream.asObservable()
 
 /**
@@ -11,8 +11,11 @@ export const selectorRemovedStream = _selectorRemovedStream.asObservable()
  * @param {string} selector A CSS selector
  * @returns {Observable<Element>} Elements that match the selector
  */
-export const querySelectorStream = (element, selector) =>
-  new Observable((subscriber) => {
+export const querySelectorStream = (
+  element: HTMLElement,
+  selector: string,
+) =>
+  new Observable<Element>((subscriber) => {
     // Initialize results with current nodes
     element
       .querySelectorAll(selector)
@@ -25,7 +28,8 @@ export const querySelectorStream = (element, selector) =>
           Array.from(mutation.addedNodes)
             // Node is Element
             .filter(
-              (node) => node.nodeType === Node.ELEMENT_NODE,
+              (node): node is Element =>
+                node.nodeType === Node.ELEMENT_NODE,
             )
             // Element matches CSS selector
             .filter((el) => el.matches(selector))
@@ -35,7 +39,8 @@ export const querySelectorStream = (element, selector) =>
               return subscriber.next(el)
             })
         } else if (mutation.type === 'attributes') {
-          const { target, oldValue } = mutation
+          const { oldValue } = mutation
+          const target = mutation.target as Element
           const className = selector.slice(1)
           const matched =
             oldValue && oldValue.includes(className)

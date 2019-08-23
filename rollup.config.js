@@ -1,6 +1,7 @@
 /* eslint-env node */
 
 import typescript from 'rollup-plugin-typescript'
+import { bundleImports } from 'rollup-plugin-bundle-imports'
 
 export default [
   {
@@ -17,6 +18,11 @@ export default [
         sourcemap: true,
       },
     ],
-    plugins: [typescript()],
+    plugins: [
+      bundleImports({
+        useVirtualModule: true,
+      }),
+      typescript(),
+    ],
   },
 ]
