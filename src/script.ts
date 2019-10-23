@@ -10,14 +10,14 @@ const handleMouseOver = invert ? hideMenu : showMenu
 
 // Get items that match, new items, and items changed to match
 querySelectorStream(document.body, selector).subscribe((el) => {
-  // console.log('querySelectorStream', selector, el)
+  console.log('🚀: querySelectorStream', selector, el)
 
   el.addEventListener('mouseout', handleMouseOut)
   el.addEventListener('mouseover', handleMouseOver)
 })
 
 selectorRemovedStream.subscribe((el) => {
-  // console.log('selectorRemovedStream', selector, el)
+  console.log('🚀: selectorRemovedStream', selector, el)
 
   el.removeEventListener('mouseout', handleMouseOut)
   el.removeEventListener('mouseover', handleMouseOver)

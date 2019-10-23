@@ -1,9 +1,6 @@
-// @bumble/menus in Base64
-export const domain = 'QGJ1bWJsZS9tZW51cw'
-
 // Message types
-export const show = `show_menu`
-export const hide = `hide_menu`
+export const show = 'show_menu'
+export const hide = 'hide_menu'
 export const element = 'last_element'
 
 // Selector placeholder

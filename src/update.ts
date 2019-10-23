@@ -2,6 +2,7 @@ import { Subject } from 'rxjs'
 import { optionsMap } from './optionsMap'
 import { noOptionsIdError } from './CONSTANTS'
 import { _updateContextMenu } from './_chrome'
+import { ContextMenuOptions } from './types'
 
 /**
  * Observable of updated ContextMenuOptions
@@ -11,7 +12,7 @@ export const updateContextMenuStream = new Subject<
 >()
 
 export async function updateContextMenu(
-  options: ContextMenuOptions,
+  options: Partial<ContextMenuOptions> & { id: string },
 ): Promise<void> {
   /* ------------- VALIDATE OPTIONS ------------- */
 
@@ -28,7 +29,7 @@ export async function updateContextMenu(
   /* -------------- GET OLD OPTIONS ------------- */
 
   const [oldOptions, subscription] = optionsMap.get(id) || [
-    {},
+    {} as ContextMenuOptions,
     null,
   ]
   const newOptions = { ...oldOptions, ...options }

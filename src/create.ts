@@ -7,6 +7,7 @@ import {
 } from './CONSTANTS'
 import { hideMenuStream, showMenuStream } from './messages'
 import { optionsMap } from './optionsMap'
+import { ContextMenuOptions } from './types'
 import {
   _createContextMenu,
   _executeScriptInTab,
@@ -35,6 +36,7 @@ export async function createContextMenu({
 
   if (invert && !selector) {
     // TODO: throw error if invert === true and no selector
+    throw new Error('options.invert requires options.selector')
   }
 
   let subscription: Subscription | null
@@ -63,9 +65,16 @@ export async function createDynamicMenu(
   selector: string,
   invert: boolean,
 ) {
+  // console.log('🚀: createDynamicMenu')
+  // console.log('🚀: options', options)
+  // console.log('🚀: selector', selector)
+  // console.log('🚀: invert', invert)
+
   /* ---------- SHOW OR HIDE MENU ITEM ---------- */
 
-  showMenuStream.subscribe(([{ id }]) => {
+  showMenuStream.subscribe(([id]) => {
+    // console.log('🚀: showMenuStream', id)
+
     if (id === options.id) {
       _createContextMenu(options).catch((error) => {
         console.error(error)
@@ -73,7 +82,9 @@ export async function createDynamicMenu(
     }
   })
 
-  hideMenuStream.subscribe(([{ id }]) => {
+  hideMenuStream.subscribe(([id]) => {
+    // console.log('🚀: hideMenuStream', id)
+
     if (id === options.id) {
       _removeContextMenu(options.id).catch((error) => {
         console.error(error)

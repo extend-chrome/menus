@@ -1,71 +1,69 @@
-import { messages } from '@bumble/messages'
-import { fromEventPattern } from 'rxjs'
-import { debounceTime, filter } from 'rxjs/operators'
-import { domain, element, hide, id, show } from './CONSTANTS'
+import { useScope } from '@bumble/messages'
+import { debounceTime } from 'rxjs/operators'
+import { element, hide, id, show } from './CONSTANTS'
+import { of, concat } from 'rxjs'
+
+const messages = useScope('@bumble/messages')
 
 // Use in content script to send command
-export const showMenu = () => {
-  console.log('showMenu')
+// export const showMenu = () => {
+//   console.log('showMenu')
 
-  return messages.send({ type: show, domain, id })
-}
+//   return messages.send({ type: show, domain, id })
+// }
+
+export const [sendShowMenu, showMenuStream] = messages.useLine<
+  string
+>(show)
+
+export const showMenu = () => sendShowMenu(id)
 
 // Use in content script to send command
-export const hideMenu = () => {
-  console.log('hideMenu')
+// export const hideMenu = () => {
+//   console.log('hideMenu')
 
-  return messages.send({ type: hide, domain, id })
-}
+//   return messages.send({ type: hide, domain, id })
+// }
 
-export const lastElement = ({ innerText }: HTMLElement) => {
-  console.log('lastElement', innerText)
+export const [sendHideMenu, hideMenuStream] = messages.useLine<
+  string
+>(hide)
 
-  messages.send({
-    type: element,
-    domain,
+export const hideMenu = () => sendHideMenu(id)
+
+// export const lastElement = (el: HTMLElement | null) => {
+//   if (!el) return
+
+//   const { innerText } = el
+
+//   console.log('lastElement', innerText)
+
+//   messages.send({
+//     type: element,
+//     domain,
+//     id,
+//     // Update contextMenuClickStream here
+//     element: {
+//       innerText,
+//     },
+//   })
+// }
+
+export const [
+  sendLastElement,
+  _lastElementStream,
+] = messages.useLine<{
+  id: string
+  element: Partial<HTMLElement>
+}>(element)
+
+export const lastElement = (el: HTMLElement | null) =>
+  sendLastElement({
     id,
-    // Update contextMenuClickStream here
-    element: {
-      innerText,
-    },
+    element: { innerText: el ? el.innerText : '' },
   })
-}
 
-// Stream only messages with the domain
-export const messageStream = fromEventPattern<
-  [
-    {
-      type: string
-      domain: string
-      id: string
-      // Update contextMenuClickStream here
-      element: {
-        innerText: string
-      }
-    },
-    chrome.runtime.MessageSender,
-  ]
->(messages.on, messages.off).pipe(
-  filter(([{ domain: d }]) => d === domain),
-)
-
-// Use in background page to receive
-export const showMenuStream = messageStream.pipe(
-  filter(([{ type }]) => type === show),
-)
-
-// Use in background page to receive
-export const hideMenuStream = messageStream.pipe(
-  filter(([{ type }]) => type === hide),
-)
-
-// Use in background page to receive
-export const lastElementStream = messageStream.pipe(
-  filter(([{ type }]) => type === element),
-  // Multiple identical messages are sent by different menus at the same time
-  debounceTime(25),
-)
-
-messageStream.subscribe(([message, sender]) => {
-  console.log('messageStream', message)
-})
+export const lastElementStream = concat(
+  of(null),
+  _lastElementStream,
+).pipe(debounceTime(25))
