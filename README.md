@@ -25,6 +25,8 @@
 
 A powerful context menu API to take your Chrome extension to the next level.
 
+> This library is in beta until version 1.0.0. The API may change between minor versions.
+
 ## Table of Contents
 
 - [Getting Started](#getting_started)
