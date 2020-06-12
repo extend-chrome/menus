@@ -1,9 +1,9 @@
-import { useScope } from '@bumble/messages'
+import { useScope } from '@extend-chrome/messages'
 import { debounceTime } from 'rxjs/operators'
 import { element, hide, id, show } from './CONSTANTS'
 import { of, concat } from 'rxjs'
 
-const messages = useScope('@bumble/messages')
+const messages = useScope('@extend-chrome/menus')
 
 // Use in content script to send command
 // export const showMenu = () => {
