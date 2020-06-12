@@ -3,17 +3,19 @@
 import typescript from 'rollup-plugin-typescript'
 import { bundleImports } from 'rollup-plugin-bundle-imports'
 
+const { main, module, dependencies } = require('./package.json')
+
 export default [
   {
     input: 'src/index.ts',
     output: [
       {
-        file: 'lib/index-esm.js',
+        file: module,
         format: 'esm',
         sourcemap: true,
       },
       {
-        file: 'lib/index-cjs.js',
+        file: main,
         format: 'cjs',
         sourcemap: true,
       },
@@ -24,11 +26,6 @@ export default [
       }),
       typescript(),
     ],
-    external: [
-      '@bumble/chrome-rxjs',
-      'rxjs',
-      'rxjs/operators',
-      '@bumble/messages',
-    ],
+    external: (id) => id.split('/')[0] in dependencies,
   },
 ]

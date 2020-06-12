@@ -1,4 +1,4 @@
-import { contextMenus } from '@bumble/chrome-rxjs'
+import { contextMenus } from '@extend-chrome/events-rxjs'
 import { map, withLatestFrom } from 'rxjs/operators'
 import { lastElementStream } from './messages'
 import { ContextMenuClickStream } from './types'

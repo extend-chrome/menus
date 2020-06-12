@@ -1,4 +1,4 @@
-import { tabs } from '@bumble/chrome-rxjs'
+import { tabs } from '@extend-chrome/events-rxjs'
 import { code } from 'code ./script.ts'
 import { Subject, Subscription } from 'rxjs'
 import {
