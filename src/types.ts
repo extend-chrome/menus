@@ -5,7 +5,7 @@ import { Observable } from 'rxjs'
 /* -------------------------------------------- */
 
 export type ContextMenuClickStream = Observable<
-  [MenuClickData, chrome.tabs.Tab]
+  [MenuClickData, chrome.tabs.Tab?]
 >
 
 export interface ContextMenuOptions {

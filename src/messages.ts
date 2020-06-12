@@ -12,7 +12,7 @@ const messages = useScope('@extend-chrome/menus')
 //   return messages.send({ type: show, domain, id })
 // }
 
-export const [sendShowMenu, showMenuStream] = messages.useLine<
+export const [sendShowMenu, showMenuStream] = messages.getMessage<
   string
 >(show)
 
@@ -25,7 +25,7 @@ export const showMenu = () => sendShowMenu(id)
 //   return messages.send({ type: hide, domain, id })
 // }
 
-export const [sendHideMenu, hideMenuStream] = messages.useLine<
+export const [sendHideMenu, hideMenuStream] = messages.getMessage<
   string
 >(hide)
 
@@ -52,7 +52,7 @@ export const hideMenu = () => sendHideMenu(id)
 export const [
   sendLastElement,
   _lastElementStream,
-] = messages.useLine<{
+] = messages.getMessage<{
   id: string
   element: Partial<HTMLElement>
 }>(element)
