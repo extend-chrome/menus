@@ -26,6 +26,9 @@ export default [
       }),
       typescript(),
     ],
-    external: (id) => !(id.split('/')[0] in dependencies),
+    external: (id) =>
+      Object.keys(dependencies).some((dep) =>
+        id.startsWith(dep),
+      ),
   },
 ]
